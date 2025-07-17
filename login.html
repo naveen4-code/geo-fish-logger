@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - THE BOYZ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>👑 THE BOYZ - Login</h1>
+  </header>
+  <main>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="📧 Email" required />
+      <input type="password" id="password" placeholder="🔐 Password" required />
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a href="register.html">Register</a></p>
+    </form>
+  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCv_ilNgMS6GzjZiEoPAv4HOiFZJZ2bwk",
+      authDomain: "geo-tagged-fish-catcher.firebaseapp.com",
+      projectId: "geo-tagged-fish-catcher"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Logged in!");
+        window.location.href = "index.html";
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+</body>
+</html>

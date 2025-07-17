@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>THE BOYZ - Fish Catch Logger</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" />
+  <script defer src="app.js" type="module"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="THE BOYZ Logo" class="logo circular-logo" />
+    <h1>THE BOYZ - Geo Fish Catch Logger</h1>
+    <nav>
+        <a href="view.html" class="nav-btn">📸 View Catches</a>
+        <a href="index.html" class="nav-btn">🏠 Dashboard</a>
+    </nav>
+    <div id="user-info"></div>
+  </header>
+
+  <main>
+    <div id="map"></div>
+    <form id="catchForm">
+      <input type="text" placeholder="🎣 Fish Species" id="species" required />
+      <input type="number" placeholder="⚖️ Weight (kg)" id="weight" step="0.01" min="0" required/>
+      <input type="file" accept="image/*" id="photo" required />
+      <button type="submit">🚀 Submit Catch</button>
+    </form>
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catch Log - THE BOYZ</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #101820;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 80vh;
+      margin: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      color: #00d8ff;
+      padding-top: 20px;
+    }
+    .marker-popup {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .marker-popup img {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 8px;
+      display: block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📍 Catch Log - THE BOYZ 🐟</h1>
+  <div id="map"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCv_ilNgMS6GzjZiEoPAv4HOiFZJZ2bwk",
+      authDomain: "geo-tagged-fish-catcher.firebaseapp.com",
+      projectId: "geo-tagged-fish-catcher",
+      storageBucket: "geo-tagged-fish-catcher.appspot.com",
+      messagingSenderId: "546391140370",
+      appId: "1:546391140370:web:3c7bd00bc9c215d66450cb"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Leaflet map
+    const map = L.map('map').setView([10, 78], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    const markerIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/616/616408.png',
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+      popupAnchor: [0, -30]
+    });
+
+    async function loadCatches() {
+      const snapshot = await getDocs(collection(db, "catches"));
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.lat && data.lng) {
+          const popupContent = `
+            <div class="marker-popup">
+              <strong>🎣 Species:</strong> ${data.species}<br>
+              <strong>⚖️ Weight:</strong> ${data.weight} kg<br>
+              <strong>🧑‍✍️ By:</strong> ${data.name || data.user}<br>
+              <strong>🕒 Time:</strong> ${new Date(data.time).toLocaleString()}<br>
+              ${data.photo ? `<img src="${data.photo}" alt="Fish"/>` : ''}
+            </div>
+          `;
+          L.marker([data.lat, data.lng], { icon: markerIcon })
+            .addTo(map)
+            .bindPopup(popupContent);
+        }
+      });
+    }
+
+    loadCatches();
+  </script>
+</body>
+</html>

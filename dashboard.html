@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - Geo Fish Logger</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Log a Catch</h2>
+  <form id="catchForm">
+    <input type="text" id="species" placeholder="Fish Species" required><br>
+    <input type="number" id="weight" placeholder="Weight (kg)" required><br>
+    <input type="file" id="photo"><br>
+    <button type="submit">Log Catch</button>
+  </form>
+
+  <h3>Your Catches:</h3>
+  <ul id="catchList"></ul>
+
+  <div id="map" style="height: 400px;"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+</body>
+</html>

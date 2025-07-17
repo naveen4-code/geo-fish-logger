@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - THE BOYZ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>👑 THE BOYZ - Register</h1>
+  </header>
+  <main>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="👤 Full Name" required />
+      <input type="email" id="email" placeholder="📧 Email" required />
+      <input type="password" id="password" placeholder="🔐 Password" required />
+      <button type="submit">Sign Up</button>
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCv_ilNgMS6GzjZiEoPAv4HOiFZJZ2bwk",
+      authDomain: "geo-tagged-fish-catcher.firebaseapp.com",
+      projectId: "geo-tagged-fish-catcher"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: name });
+        alert("Registered successfully!");
+        window.location.href = "index.html";
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+</body>
+</html>
