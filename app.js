@@ -3,12 +3,12 @@ import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/fi
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDCv_ilNgMS6GzjZiEoPAv4HOiFZJZ2bwk",
+  apiKey: "your_api_key",
   authDomain: "geo-tagged-fish-catcher.firebaseapp.com",
   projectId: "geo-tagged-fish-catcher",
   storageBucket: "geo-tagged-fish-catcher.appspot.com",
-  messagingSenderId: "546391140370",
-  appId: "1:546391140370:web:3c7bd00bc9c215d66450cb"
+  messagingSenderId: "your_id",
+  appId: "your_app_id"
 };
 
 const app = initializeApp(firebaseConfig);
